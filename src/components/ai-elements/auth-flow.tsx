@@ -33,7 +33,7 @@ export function AuthFlow({ onAuthenticated }: { onAuthenticated: () => void }) {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -57,8 +57,9 @@ export function AuthFlow({ onAuthenticated }: { onAuthenticated: () => void }) {
         // The login form remains available if the session check is offline.
       }
 
-      if (!cancelled && localStorage.getItem("unlovable_terms_accepted") === "true") {
-        setStep("request");
+      if (!cancelled) {
+        if (localStorage.getItem("unlovable_terms_accepted") === "true") setStep("request");
+        setIsOpen(true);
       }
     }
 

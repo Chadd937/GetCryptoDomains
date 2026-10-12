@@ -37,7 +37,6 @@ const starters = [
 ];
 
 function Unlovable() {
-  const [isAuthenticated, setAuthenticated] = useState(false);
   const [input, setInput] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -90,10 +89,7 @@ function Unlovable() {
     </PromptInput>
   </div>;
 
-  if (!isAuthenticated) {
-    return <AuthFlow onAuthenticated={() => setAuthenticated(true)} />;
-  }
-
+  // Authentication is handled once at the application root before any route renders.
   return <TooltipProvider><div className="app-shell">
     <aside className={`sidebar ${menuOpen ? 'open' : ''}`}>
       <div className="brand"><Sigil className="text-primary" /> Unlovable <Button variant="ghost" size="icon-sm" className="mobile-menu ml-auto" aria-label="Close menu" onClick={() => setMenuOpen(false)}><X /></Button></div>
