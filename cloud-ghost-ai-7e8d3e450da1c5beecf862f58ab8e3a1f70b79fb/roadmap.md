@@ -1,10 +1,10 @@
-# Unlovable
+# getCryptoDomains
 
 ## Product
 - [x] Create haunted AI builder interface and live preview.
-- [x] Pull the complete Unlovable flow from the local project (verified identical to Chadd937/cloud-ghost-ai).
+- [x] Pull the complete getCryptoDomains AI Studio flow from the local project (verified identical to Chadd937/cloud-ghost-ai).
 - [x] Verify Cloudflare AI generation through the connector gateway (Llama 3.3 70B: non-streaming + streaming verified).
-- [x] Route chat.ts AI calls through the Cloudflare connector gateway (LOVABLE_API_KEY + CLOUDFLARE_API_KEY read in the handler).
+- [x] Route chat.ts AI calls through the Cloudflare connector gateway (Cloudflare Workers AI binding configured in the server handler).
 - [ ] Verify generated HTML preview isolation and export behavior.
 - [ ] Add end-to-end browser smoke tests.
 
