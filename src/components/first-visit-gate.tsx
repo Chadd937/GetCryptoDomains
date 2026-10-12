@@ -28,7 +28,7 @@ export function FirstVisitGate({ onComplete }: { onComplete: () => void }) {
   }
 
   if (stage === "checking") return <div className="fixed inset-0 z-[9999] bg-[#080b09]" aria-label="Preparing terms and privacy notice" />;
-  if (stage === "auth") return <div className="fixed inset-0 z-[9999] min-h-screen bg-[#080b09]"><AuthFlow onAuthenticated={onComplete} /></div>;
+  if (stage === "auth") return <AuthFlow onAuthenticated={onComplete} />;
 
   return <main className="fixed inset-0 z-[9999] overflow-y-auto bg-[#080b09] px-4 py-6 text-[#f0f2eb] sm:px-6 sm:py-10">
     <section className="mx-auto flex min-h-full w-full max-w-3xl flex-col rounded-2xl border border-[#52604e] bg-[#101511] p-5 shadow-2xl sm:p-8">
