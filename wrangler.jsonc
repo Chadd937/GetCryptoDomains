@@ -1,0 +1,34 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "getcryptodomains",
+	"main": ".output/server/index.mjs",
+	"compatibility_date": "2026-10-12",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"workers_dev": true,
+	"routes": [
+		{
+			"pattern": "getcryptodomains.com",
+			"custom_domain": true
+		}
+	],
+	"ai": {
+		"binding": "AI"
+	},
+	"assets": {
+		"directory": "./.output/public",
+		"binding": "ASSETS"
+	},
+	"vars": {
+		"AUTH_API_URL": "https://auth.getcryptodomains.com"
+	},
+	"d1_databases": [
+		{
+			"binding": "getcryptodomains_platform",
+			"database_name": "getcryptodomains-platform",
+			"database_id": "40956b53-306e-4e32-9265-ed1082fca2c1",
+			"remote": true
+		}
+	]
+}

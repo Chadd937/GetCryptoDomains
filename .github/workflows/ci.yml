@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Auth lint, tests, and production build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Lint authentication and chat changes
+        run: npx eslint src/lib/auth.ts src/lib/auth.test.ts src/routes/api/auth src/routes/api/chat.ts src/components/ai-elements/auth-flow.tsx --rule 'prettier/prettier: off'
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build production app
+        run: npm run build
