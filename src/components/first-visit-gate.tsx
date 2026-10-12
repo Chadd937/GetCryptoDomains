@@ -20,7 +20,7 @@ export function FirstVisitGate({ onComplete }: { onComplete: () => void }) {
   function acceptAndContinue() {
     if (!termsAccepted || !privacyAcknowledged || !dataAcknowledged) return;
     try {
-      localStorage.setItem("unlovable_terms_accepted", "true");
+      localStorage.setItem("getcryptodomains_terms_accepted", "true");
       localStorage.setItem("getcryptodomains_legal_version", "2026-10-12");
       localStorage.setItem("getcryptodomains_legal_accepted_at", new Date().toISOString());
     } catch { /* Consent still applies to this visit if storage is unavailable. */ }
@@ -32,7 +32,7 @@ export function FirstVisitGate({ onComplete }: { onComplete: () => void }) {
 
   return <main className="fixed inset-0 z-[9999] overflow-y-auto bg-[#080b09] px-4 py-6 text-[#f0f2eb] sm:px-6 sm:py-10">
     <section className="mx-auto flex min-h-full w-full max-w-3xl flex-col rounded-2xl border border-[#52604e] bg-[#101511] p-5 shadow-2xl sm:p-8">
-      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#b4d79a]">getCryptoDomains · Unlovable · Virtual Office</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#b4d79a]">getCryptoDomains · AI Studio · Virtual Office</p>
       <h1 className="mt-3 font-serif text-3xl sm:text-4xl">Before you enter</h1>
       <p className="mt-3 max-w-2xl text-sm leading-6 text-[#c1c8bd]">Review the terms, privacy notice, and data-use disclosures. You must acknowledge all three before secure email-code sign-in appears. No landing-page or workspace content is rendered before this step.</p>
       <div className="mt-6 flex flex-wrap gap-2" role="tablist" aria-label="Legal disclosures">
@@ -43,7 +43,7 @@ export function FirstVisitGate({ onComplete }: { onComplete: () => void }) {
       <div className="mt-4 max-h-[42vh] min-h-[250px] overflow-y-auto rounded-xl border border-[#394238] bg-[#090d0a] p-5 text-sm leading-6 text-[#d6ddd2]">
         {tab === "terms" && <div className="space-y-4">
           <h2 className="text-lg font-semibold text-white">Terms of Service · Effective October 12, 2026</h2>
-          <p>getCryptoDomains provides domain-discovery links, AI-assisted website creation through Unlovable, and virtual-office planning tools. By continuing, you agree to use the services lawfully and responsibly.</p>
+          <p>getCryptoDomains provides domain-discovery links, AI-assisted website creation through AI Studio, and virtual-office planning tools. By continuing, you agree to use the services lawfully and responsibly.</p>
           <h3 className="font-semibold text-white">Accounts and security</h3><p>You must provide an email address you control and protect your email account and sign-in codes. Do not share verification codes. We may restrict access to protect the service or respond to misuse.</p>
           <h3 className="font-semibold text-white">AI-generated content</h3><p>AI output can be inaccurate, incomplete, insecure, or similar to other output. Review and test generated code, content, accessibility, licensing, and security before publishing or relying on it. You are responsible for prompts, submitted material, and how you use generated output. Do not submit secrets, passwords, payment-card details, or information you are not authorized to share.</p>
           <h3 className="font-semibold text-white">Acceptable use</h3><p>Do not use the service to break the law, violate others' rights, distribute malware, compromise systems, deceive people, or generate content you have no right to use. Do not bypass security, abuse AI or infrastructure, or disrupt the service.</p>
@@ -53,7 +53,7 @@ export function FirstVisitGate({ onComplete }: { onComplete: () => void }) {
         </div>}
         {tab === "privacy" && <div className="space-y-4">
           <h2 className="text-lg font-semibold text-white">Privacy Policy · Effective October 12, 2026</h2>
-          <h3 className="font-semibold text-white">Information handled</h3><p>Depending on features used, information can include your email for login and verification; verification and session information needed to secure your account; technical request and security logs; and prompts, instructions, and generated content submitted through Unlovable.</p>
+          <h3 className="font-semibold text-white">Information handled</h3><p>Depending on features used, information can include your email for login and verification; verification and session information needed to secure your account; technical request and security logs; and prompts, instructions, and generated content submitted through AI Studio.</p>
           <h3 className="font-semibold text-white">How information is used</h3><p>We use information to authenticate you, provide the application, process AI requests, maintain security, prevent abuse, troubleshoot failures, and operate the service. Browser storage remembers your legal-consent choice. Authentication may use a session cookie.</p>
           <h3 className="font-semibold text-white">No sale of personal data</h3><p><strong className="text-white">We do not sell or rent your personal information.</strong> We do not offer personal information to data brokers. We may process or disclose information to service providers needed to operate the product, when you direct us to use a third party, when required by law, or to protect rights and safety.</p>
           <h3 className="font-semibold text-white">Service providers and external links</h3><p>Cloudflare provides hosting, infrastructure, and AI services; information sent to an AI feature is processed to produce its response and may be handled under Cloudflare's applicable service terms. When you follow a domain-search link, Dynadot receives information you submit to it and its own policies apply. We do not control third-party sites or their practices.</p>
@@ -65,7 +65,7 @@ export function FirstVisitGate({ onComplete }: { onComplete: () => void }) {
           <ul className="list-disc space-y-2 pl-5">
             <li><strong className="text-white">We do not sell your data.</strong> We do not sell or rent personal information or provide it to data brokers.</li>
             <li>Your email is used for passwordless login and account/session security.</li>
-            <li>Prompts and content sent to Unlovable are processed by the configured AI service to generate responses. Do not paste passwords, API keys, wallet seed phrases, confidential customer records, or other secrets.</li>
+            <li>Prompts and content sent to AI Studio are processed by the configured AI service to generate responses. Do not paste passwords, API keys, wallet seed phrases, confidential customer records, or other secrets.</li>
             <li>Cloudflare is a hosting, security, and AI provider. External domain searches go to Dynadot; information entered there is subject to its policies.</li>
             <li>Necessary authentication cookies and browser storage may keep you signed in and remember consent. Clearing browser storage resets this browser's consent reminder.</li>
             <li>The office/checklist interface is not a guaranteed private, durable, cross-device document store. Do not put sensitive company or customer data in it.</li>
