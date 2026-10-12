@@ -33,7 +33,8 @@ export function AuthFlow({ onAuthenticated }: { onAuthenticated: () => void }) {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+  // Open immediately so a slow or unavailable session endpoint can never leave a blank screen.
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
@@ -58,7 +59,12 @@ export function AuthFlow({ onAuthenticated }: { onAuthenticated: () => void }) {
       }
 
       if (!cancelled) {
-        if (localStorage.getItem("unlovable_terms_accepted") === "true") setStep("request");
+        // Storage access can be blocked in privacy modes; it must never prevent the login UI.
+        try {
+          if (window.localStorage.getItem("unlovable_terms_accepted") === "true") setStep("request");
+        } catch {
+          setStep("request");
+        }
         setIsOpen(true);
       }
     }
@@ -70,7 +76,11 @@ export function AuthFlow({ onAuthenticated }: { onAuthenticated: () => void }) {
   }, [onAuthenticated]);
 
   const handleAcceptTerms = () => {
-    localStorage.setItem("unlovable_terms_accepted", "true");
+    try {
+      window.localStorage.setItem("unlovable_terms_accepted", "true");
+    } catch {
+      // The comprehensive legal gate already handled consent for this visit.
+    }
     setStep("request");
   };
 
