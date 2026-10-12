@@ -16,18 +16,18 @@ import hauntedGarden from '@/assets/haunted-garden.jpg';
 
 export const Route = createFileRoute('/studio')({
   head: () => ({ meta: [
-    { title: 'Unlovable Studio — Build with AI' },
-    { name: 'description', content: 'Create websites with Unlovable, a haunted AI workspace powered by your Cloudflare account.' },
-    { property: 'og:title', content: 'Unlovable — Your haunted AI builder' },
+    { title: 'getCryptoDomains Studio — Build with AI' },
+    { name: 'description', content: 'Create websites with AI Studio, a haunted AI workspace powered by your Cloudflare account.' },
+    { property: 'og:title', content: 'getCryptoDomains — AI Studio' },
     { property: 'og:description', content: 'Conjure a website from an idea. Build, preview and export with Cloudflare AI.' },
     { property: 'og:type', content: 'website' },
     { name: 'twitter:card', content: 'summary_large_image' },
   ] }),
-  component: Unlovable,
+  component: AI Studio,
 });
 
 function Sigil({ className = '' }: { className?: string }) {
-  return <svg className={`brand-mark ${className}`} viewBox="0 0 32 36" fill="none" aria-label="Unlovable emblem"><path d="M5 29V17C5 10 10 5 16 2C22 5 27 10 27 17V29L23 26L19 30L16 27L12 31L8 27L5 29Z" fill="currentColor" opacity=".85"/><path d="M11 17L14 19M21 17L18 19" stroke="var(--background)" strokeWidth="2.5" strokeLinecap="round"/><path d="M15 23H17" stroke="var(--background)" strokeWidth="1.5" strokeLinecap="round"/></svg>;
+  return <svg className={`brand-mark ${className}`} viewBox="0 0 32 36" fill="none" aria-label="getCryptoDomains Studio mark"><path d="M5 29V17C5 10 10 5 16 2C22 5 27 10 27 17V29L23 26L19 30L16 27L12 31L8 27L5 29Z" fill="currentColor" opacity=".85"/><path d="M11 17L14 19M21 17L18 19" stroke="var(--background)" strokeWidth="2.5" strokeLinecap="round"/><path d="M15 23H17" stroke="var(--background)" strokeWidth="1.5" strokeLinecap="round"/></svg>;
 }
 
 const starters = [
@@ -36,7 +36,7 @@ const starters = [
   { title: 'Your Next Obsession', subtitle: 'An app with a life of its own.', art: 'app', prompt: 'Build a polished dark task management app called Nightshift with tasks, add task form, complete actions, and filters.' },
 ];
 
-function Unlovable() {
+function AI Studio() {
   const [input, setInput] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -70,7 +70,7 @@ function Unlovable() {
   function downloadSite() {
     if (!html) return;
     const url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
-    const a = document.createElement('a'); a.href = url; a.download = 'unlovable-creation.html'; a.click(); URL.revokeObjectURL(url);
+    const a = document.createElement('a'); a.href = url; a.download = 'getcryptodomains-creation.html'; a.click(); URL.revokeObjectURL(url);
   }
   function submit({ text }: { text: string }) {
     if (!text.trim() || busy) return;
@@ -92,7 +92,7 @@ function Unlovable() {
   // Authentication is handled once at the application root before any route renders.
   return <TooltipProvider><div className="app-shell">
     <aside className={`sidebar ${menuOpen ? 'open' : ''}`}>
-      <div className="brand"><Sigil className="text-primary" /> Unlovable <Button variant="ghost" size="icon-sm" className="mobile-menu ml-auto" aria-label="Close menu" onClick={() => setMenuOpen(false)}><X /></Button></div>
+      <div className="brand"><Sigil className="text-primary" /> AI Studio <Button variant="ghost" size="icon-sm" className="mobile-menu ml-auto" aria-label="Close menu" onClick={() => setMenuOpen(false)}><X /></Button></div>
       <div className="mt-8"><Button variant="outline" className="w-full justify-start gap-3 text-xs h-10" onClick={startNew}><Plus className="size-4" /> New creation <span className="ml-auto text-muted-foreground">↗</span></Button></div>
       <div className="sidebar-label">Your workspace</div>
       <Button variant="ghost" className="nav-item active" onClick={() => { if (active) startNew(); setMenuOpen(false); }}><Moon className="size-4" /> The workbench</Button>
@@ -116,7 +116,7 @@ function Unlovable() {
         <img src={hauntedGarden} className="haunted-background" alt="A moonlit gothic doorway in a haunted garden" width={1536} height={1024} />
         <div className="home-content">
           <div className="greeting">An idea is a dangerous thing</div>
-          <h1 className="hero-heading">Unlovable<span className="text-primary">.</span></h1>
+          <h1 className="hero-heading">AI Studio<span className="text-primary">.</span></h1>
           <p className="hero-subtitle">Bring your dark ideas to life.</p>
           {composer}
           <div className="composer-note"><ShieldCheck className="size-3" /> Your imagination. Your Cloudflare. No borrowed magic.</div>
@@ -145,6 +145,6 @@ function Unlovable() {
         </section>
       </div>}
     </main>
-    <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}><DialogContent><DialogHeader><DialogTitle className="font-display text-3xl">The source of your magic</DialogTitle><DialogDescription>Your Unlovable workspace</DialogDescription></DialogHeader><div><div className="settings-detail"><span className="flex items-center gap-2"><Cloud className="size-4 text-spectral" /> AI provider</span><span>Cloudflare Workers AI</span></div><div className="settings-detail"><span>Connection</span><span className="text-primary">Connected</span></div><div className="settings-detail"><span>Model</span><span>Llama 3.3 · 70B</span></div><div className="settings-detail"><span>History</span><span>This session only</span></div><div className="settings-detail"><span className="flex items-center gap-2"><Globe className="size-4" /> Intended domain</span><span>GetCryptoDomains.com</span></div><p className="text-xs text-muted-foreground leading-6 mt-4">Cloudflare usage is billed to your connected account. Your account credentials stay private.</p></div><Button variant="secondary" onClick={() => setSettingsOpen(false)}>Back to the workbench</Button></DialogContent></Dialog>
+    <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}><DialogContent><DialogHeader><DialogTitle className="font-display text-3xl">The source of your magic</DialogTitle><DialogDescription>Your AI Studio workspace</DialogDescription></DialogHeader><div><div className="settings-detail"><span className="flex items-center gap-2"><Cloud className="size-4 text-spectral" /> AI provider</span><span>Cloudflare Workers AI</span></div><div className="settings-detail"><span>Connection</span><span className="text-primary">Connected</span></div><div className="settings-detail"><span>Model</span><span>Llama 3.3 · 70B</span></div><div className="settings-detail"><span>History</span><span>This session only</span></div><div className="settings-detail"><span className="flex items-center gap-2"><Globe className="size-4" /> Intended domain</span><span>GetCryptoDomains.com</span></div><p className="text-xs text-muted-foreground leading-6 mt-4">Cloudflare usage is billed to your connected account. Your account credentials stay private.</p></div><Button variant="secondary" onClick={() => setSettingsOpen(false)}>Back to the workbench</Button></DialogContent></Dialog>
   </div></TooltipProvider>;
 }
