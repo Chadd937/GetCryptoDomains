@@ -23,7 +23,7 @@ export const Route = createFileRoute('/studio')({
     { property: 'og:type', content: 'website' },
     { name: 'twitter:card', content: 'summary_large_image' },
   ] }),
-  component: AI Studio,
+  component: Studio,
 });
 
 function Sigil({ className = '' }: { className?: string }) {
@@ -36,7 +36,7 @@ const starters = [
   { title: 'Your Next Obsession', subtitle: 'An app with a life of its own.', art: 'app', prompt: 'Build a polished dark task management app called Nightshift with tasks, add task form, complete actions, and filters.' },
 ];
 
-function AI Studio() {
+function Studio() {
   const [input, setInput] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
