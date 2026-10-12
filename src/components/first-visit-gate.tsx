@@ -13,7 +13,7 @@ export function FirstVisitGate({ onComplete }: { onComplete: () => void }) {
   const [dataAcknowledged, setDataAcknowledged] = useState(false);
 
   useEffect(() => {
-    try { setStage(localStorage.getItem("unlovable_terms_accepted") === "true" ? "auth" : "terms"); }
+    try { setStage(localStorage.getItem("getcryptodomains_legal_version") === "2026-10-12" ? "auth" : "terms"); }
     catch { setStage("terms"); }
   }, []);
 
