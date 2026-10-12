@@ -1,4 +1,4 @@
-# Cloud Ghost AI — GetCryptoDomains
+# getCryptoDomains
 
 Live site: https://getcryptodomains.com
 
