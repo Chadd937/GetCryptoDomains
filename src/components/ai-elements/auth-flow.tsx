@@ -61,7 +61,7 @@ export function AuthFlow({ onAuthenticated }: { onAuthenticated: () => void }) {
       if (!cancelled) {
         // Storage access can be blocked in privacy modes; it must never prevent the login UI.
         try {
-          if (window.localStorage.getItem("unlovable_terms_accepted") === "true") setStep("request");
+          if (window.localStorage.getItem("getcryptodomains_terms_accepted") === "true") setStep("request");
         } catch {
           setStep("request");
         }
@@ -77,7 +77,7 @@ export function AuthFlow({ onAuthenticated }: { onAuthenticated: () => void }) {
 
   const handleAcceptTerms = () => {
     try {
-      window.localStorage.setItem("unlovable_terms_accepted", "true");
+      window.localStorage.setItem("getcryptodomains_terms_accepted", "true");
     } catch {
       // The comprehensive legal gate already handled consent for this visit.
     }
@@ -163,9 +163,9 @@ export function AuthFlow({ onAuthenticated }: { onAuthenticated: () => void }) {
                   <ShieldCheck className="size-3 text-primary" /> Terms of Service
                 </h4>
                 <p>1. You agree that the creations summoned here are for creative exploration.</p>
-                <p className="mt-2">2. You will not use Unlovable to generate malicious code or harmful content.</p>
+                <p className="mt-2">2. You will not use getCryptoDomains AI Studio to generate malicious code or harmful content.</p>
                 <p className="mt-2">3. You acknowledge that the AI is powered by your own Cloudflare account and quota.</p>
-                <p className="mt-2">4. Unlovable is provided "as is" in the haunted gardens of the web.</p>
+                <p className="mt-2">4. The service is provided "as is" and generated output should be reviewed before use.</p>
               </div>
               <Button className="w-full gap-2" onClick={handleAcceptTerms}>
                 I Accept the Pact <ChevronRight className="size-4" />
