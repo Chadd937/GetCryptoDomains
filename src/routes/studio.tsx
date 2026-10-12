@@ -27,7 +27,7 @@ export const Route = createFileRoute('/studio')({
 });
 
 function Sigil({ className = '' }: { className?: string }) {
-  return <svg className={`brand-mark ${className}`} viewBox="0 0 32 36" fill="none" aria-label="getCryptoDomains Studio mark"><path d="M5 29V17C5 10 10 5 16 2C22 5 27 10 27 17V29L23 26L19 30L16 27L12 31L8 27L5 29Z" fill="currentColor" opacity=".85"/><path d="M11 17L14 19M21 17L18 19" stroke="var(--background)" strokeWidth="2.5" strokeLinecap="round"/><path d="M15 23H17" stroke="var(--background)" strokeWidth="1.5" strokeLinecap="round"/></svg>;
+  return <svg className={`brand-mark ${className}`} viewBox="0 0 32 32" fill="none" aria-label="getCryptoDomains mark"><path d="M16 2.5 29.5 16 16 29.5 2.5 16 16 2.5Z" stroke="currentColor" strokeWidth="2"/><path d="M10 16h12M16 10v12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>;
 }
 
 const starters = [
