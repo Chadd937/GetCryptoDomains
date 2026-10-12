@@ -189,7 +189,7 @@
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
 
 
-/* Unlovable launch office */
+/* getCryptoDomains launch office */
 .office-sidebar .brand { text-decoration: none; color: var(--foreground); }
 .office-heart { color: var(--foreground); font-family: sans-serif; font-size: 25px; text-shadow: 0 0 18px color-mix(in oklch, var(--foreground) 18%, transparent); }
 .office-nav { display: flex; align-items: center; gap: 10px; padding: 10px 12px; margin: 3px 0; border-radius: 6px; color: var(--muted-foreground); font-size: 13px; text-decoration: none; }
