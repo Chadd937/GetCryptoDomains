@@ -1,4 +1,4 @@
-name: Deploy Cloud Ghost AI to Cloudflare
+name: Deploy getCryptoDomains to Cloudflare
 
 on:
   push:
