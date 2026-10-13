@@ -1,69 +1,71 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { useState } from 'react';
-import { ArrowLeft, ArrowUpRight, Check, Circle, ExternalLink, Globe, Smartphone, Users } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { createFileRoute } from '@tanstack/react-router';
+import { ArrowUpRight, ExternalLink, Maximize2 } from 'lucide-react';
+
+const OFFICE_HUB_URL = 'https://office.getcryptodomains.com';
 
 export const Route = createFileRoute('/office')({
-  head: () => ({ meta: [{ title: 'Virtual Office Hub — GetCryptoDomains' }, { name: 'description', content: 'Plan your domain, website, and Google Play launch in one workspace.' }] }),
-  component: LaunchOffice,
+  head: () => ({
+    meta: [
+      { title: 'Virtual Office Hub — GetCryptoDomains' },
+      {
+        name: 'description',
+        content:
+          'Open your private virtual headquarters with owner-controlled managers, employees, projects, tasks, and approvals.',
+      },
+    ],
+  }),
+  component: VirtualOfficeHub,
 });
 
-const tasks = [
-  ['Define the app and audience', 'Describe what the app does and who it helps.', 'Plan'],
-  ['Secure a domain', 'Search a name and register it with a domain registrar.', 'Domain'],
-  ['Publish your website', 'Build the landing page and deploy it to your hosting provider.', 'Website'],
-  ['Prepare the Android release', 'Build a signed Android App Bundle (AAB).', 'Google Play'],
-  ['Complete the Play Store listing', 'Prepare screenshots, description, privacy policy, and required declarations.', 'Google Play'],
-  ['Test the release', 'Test on devices and complete any Play Console testing requirements.', 'Testing'],
-  ['Submit for review', 'Check release details and submit through Google Play Console.', 'Launch'],
-] as const;
-
-function LaunchOffice() {
-  const [domain, setDomain] = useState('');
-  const [project, setProject] = useState('');
-  const [completed, setCompleted] = useState<number[]>([]);
-  const [showDns, setShowDns] = useState(false);
-
-  function searchDomain(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const name = domain.trim();
-    if (!name || /\s/.test(name)) return;
-    window.open('https://www.dynadot.com/domain/search?domain=' + encodeURIComponent(name), '_blank', 'noopener,noreferrer');
-  }
-
-  return <div className="app-shell">
-    <aside className="sidebar office-sidebar">
-      <Link to="/studio" className="brand"><span className="office-heart">♥</span> Unlovable</Link>
-      <div className="sidebar-label">Your company</div>
-      <Link to="/studio" className="office-nav"><ArrowLeft className="size-4" /> AI workbench</Link>
-      <div className="office-nav active"><Users className="size-4" /> Launch office</div>
-      <div className="office-sidebar-foot">GetCryptoDomains Virtual Office</div>
-    </aside>
-    <main className="main-workspace office-main">
-      <header className="topbar"><div className="breadcrumb">GetCryptoDomains <span>/</span> <strong>Launch office</strong></div><a className="office-external" href="https://play.google.com/console/" target="_blank" rel="noreferrer">Google Play Console <ArrowUpRight className="size-3.5" /></a></header>
-      <div className="office-content">
-        <div className="office-eyebrow">GETCRYPTODOMAINS · VIRTUAL OFFICE</div>
-        <h1 className="office-title">From idea to <em>published.</em></h1>
-        <p className="office-lede">Your app, domain, website, and Google Play launch — organized in one place.</p>
-        <section className="office-team-card" style={{ marginBottom: '1.5rem' }}>
-          <Users className="size-6 text-primary" />
-          <div style={{ flex: 1 }}>
-            <h3>Your full Virtual Office Hub</h3>
-            <p>Open the original animated headquarters with manager and employee workflows, projects, tasks, and owner approvals.</p>
-            <a className="office-external" href="https://office.getcryptodomains.com" target="_blank" rel="noreferrer">Open Virtual Office Hub <ArrowUpRight className="size-3.5" /></a>
-          </div>
-        </section>
-        <div className="office-project-bar"><div className="office-project-icon"><Smartphone className="size-5" /></div><div className="office-project-input"><label htmlFor="office-project">Project name</label><Input id="office-project" value={project} onChange={e => setProject(e.target.value)} placeholder="e.g. Midnight Wallet" /></div><div className="office-progress"><strong>{completed.length} / {tasks.length}</strong><span>launch steps complete</span><div className="office-progress-track"><span style={{ width: (completed.length / tasks.length * 100) + '%' }} /></div></div></div>
-        <section className="office-section" id="domain">
-          <div className="office-section-heading"><h2><span>01</span> Find your domain</h2><span className="office-pill">Domain desk</span></div>
-          <div className="office-domain-card"><div className="office-domain-copy"><Globe className="size-5 text-primary" /><div><h3>Your idea deserves its own address.</h3><p>Search through Dynadot. Availability, final pricing, and registration are confirmed by the registrar.</p></div></div><form className="office-domain-form" onSubmit={searchDomain}><Input aria-label="Domain name to search" value={domain} onChange={e => setDomain(e.target.value)} placeholder="yourgreatidea.com" required /><Button type="submit" disabled={!domain.trim()}>Search domains <ExternalLink className="size-3.5" /></Button></form><p className="office-domain-note">This opens Dynadot in a new tab. We have not connected a reseller API or affiliate tracking yet, and this page does not claim live availability.</p></div>
-          <div className="office-connect-card"><div><h3>Already own a domain?</h3><p>Connect it after your site is deployed by adding the exact DNS records your hosting provider supplies.</p></div><Button variant="outline" onClick={() => setShowDns(v => !v)}>{showDns ? 'Hide steps' : 'Show connection steps'}</Button>{showDns && <ol><li>Deploy the website first.</li><li>Add your domain in your hosting provider’s custom-domain settings.</li><li>Copy the exact DNS records it provides into your registrar’s DNS panel.</li><li>Wait for verification and HTTPS before sharing the site.</li></ol>}</div>
-        </section>
-        <section className="office-section" id="checklist"><div className="office-section-heading"><h2><span>02</span> Launch checklist</h2><span className="office-muted">{Math.round(completed.length / tasks.length * 100)}% complete</span></div><div className="office-task-list">{tasks.map((task, i) => <article className={'office-task ' + (completed.includes(i) ? 'is-complete' : '')} key={task[0]}><button className="office-task-check" type="button" aria-label={completed.includes(i) ? 'Mark incomplete' : 'Mark complete'} onClick={() => setCompleted(current => current.includes(i) ? current.filter(n => n !== i) : [...current, i])}>{completed.includes(i) ? <Check className="size-4" /> : <Circle className="size-4" />}</button><div><div className="office-task-meta">{task[2]} · STEP {String(i + 1).padStart(2, '0')}</div><h3>{task[0]}</h3><p>{task[1]}</p></div></article>)}</div></section>
-        <section className="office-section"><div className="office-section-heading"><h2><span>03</span> Build your team</h2><span className="office-pill">Next phase</span></div><div className="office-team-card"><Users className="size-6 text-primary" /><div><h3>Managers, employees, and private project spaces</h3><p>This is the first launch-office foundation. Team invitations, role permissions, and cross-device task storage must be backed by authenticated server-side storage before they can safely go live.</p></div></div></section>
-        <footer className="office-footer">Your idea. Your domain. Your launch.</footer>
-      </div>
+function VirtualOfficeHub() {
+  return (
+    <main className="flex min-h-screen flex-col bg-background text-foreground">
+      <header className="flex min-h-14 items-center justify-between gap-3 border-b border-border px-4 py-3 sm:px-6">
+        <div className="min-w-0">
+          <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
+            GetCryptoDomains
+          </p>
+          <h1 className="truncate text-lg font-semibold">Virtual Office Hub</h1>
+        </div>
+        <a
+          href={OFFICE_HUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex shrink-0 items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-sm font-medium transition-colors hover:bg-muted"
+          aria-label="Open Virtual Office Hub in a new tab"
+        >
+          <Maximize2 className="size-4" />
+          <span className="hidden sm:inline">Open full app</span>
+          <ArrowUpRight className="size-4" />
+        </a>
+      </header>
+      <section className="relative min-h-[calc(100dvh-3.5rem)] flex-1">
+        <iframe
+          title="Virtual Office Hub"
+          src={OFFICE_HUB_URL}
+          className="absolute inset-0 h-full min-h-[calc(100dvh-3.5rem)] w-full border-0 bg-background"
+          loading="eager"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allow="clipboard-read; clipboard-write; fullscreen"
+        />
+        <noscript>
+          <p className="p-6">
+            JavaScript is required to use the Virtual Office Hub.{' '}
+            <a href={OFFICE_HUB_URL}>Open the office app</a>.
+          </p>
+        </noscript>
+      </section>
+      <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-2 text-xs text-muted-foreground sm:px-6">
+        <span>The office runs as a separate application to keep its deployment and workspace services isolated.</span>
+        <a
+          href={OFFICE_HUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 hover:text-foreground"
+        >
+          office.getcryptodomains.com <ExternalLink className="size-3" />
+        </a>
+      </footer>
     </main>
-  </div>;
+  );
 }
