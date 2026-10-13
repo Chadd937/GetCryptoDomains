@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 export const Route = createFileRoute('/office')({
-  head: () => ({ meta: [{ title: 'Launch Office — Unlovable' }, { name: 'description', content: 'Plan your domain, website, and Google Play launch in one workspace.' }] }),
+  head: () => ({ meta: [{ title: 'Virtual Office Hub — GetCryptoDomains' }, { name: 'description', content: 'Plan your domain, website, and Google Play launch in one workspace.' }] }),
   component: LaunchOffice,
 });
 
@@ -38,14 +38,22 @@ function LaunchOffice() {
       <div className="sidebar-label">Your company</div>
       <Link to="/studio" className="office-nav"><ArrowLeft className="size-4" /> AI workbench</Link>
       <div className="office-nav active"><Users className="size-4" /> Launch office</div>
-      <div className="office-sidebar-foot">Unlovable — by getCryptoDomains</div>
+      <div className="office-sidebar-foot">GetCryptoDomains Virtual Office</div>
     </aside>
     <main className="main-workspace office-main">
-      <header className="topbar"><div className="breadcrumb">Unlovable <span>/</span> <strong>Launch office</strong></div><a className="office-external" href="https://play.google.com/console/" target="_blank" rel="noreferrer">Google Play Console <ArrowUpRight className="size-3.5" /></a></header>
+      <header className="topbar"><div className="breadcrumb">GetCryptoDomains <span>/</span> <strong>Launch office</strong></div><a className="office-external" href="https://play.google.com/console/" target="_blank" rel="noreferrer">Google Play Console <ArrowUpRight className="size-3.5" /></a></header>
       <div className="office-content">
-        <div className="office-eyebrow">UNLOVABLE · BY GETCRYPTODOMAINS</div>
+        <div className="office-eyebrow">GETCRYPTODOMAINS · VIRTUAL OFFICE</div>
         <h1 className="office-title">From idea to <em>published.</em></h1>
         <p className="office-lede">Your app, domain, website, and Google Play launch — organized in one place.</p>
+        <section className="office-team-card" style={{ marginBottom: '1.5rem' }}>
+          <Users className="size-6 text-primary" />
+          <div style={{ flex: 1 }}>
+            <h3>Your full Virtual Office Hub</h3>
+            <p>Open the original animated headquarters with manager and employee workflows, projects, tasks, and owner approvals.</p>
+            <a className="office-external" href="https://office.getcryptodomains.com" target="_blank" rel="noreferrer">Open Virtual Office Hub <ArrowUpRight className="size-3.5" /></a>
+          </div>
+        </section>
         <div className="office-project-bar"><div className="office-project-icon"><Smartphone className="size-5" /></div><div className="office-project-input"><label htmlFor="office-project">Project name</label><Input id="office-project" value={project} onChange={e => setProject(e.target.value)} placeholder="e.g. Midnight Wallet" /></div><div className="office-progress"><strong>{completed.length} / {tasks.length}</strong><span>launch steps complete</span><div className="office-progress-track"><span style={{ width: (completed.length / tasks.length * 100) + '%' }} /></div></div></div>
         <section className="office-section" id="domain">
           <div className="office-section-heading"><h2><span>01</span> Find your domain</h2><span className="office-pill">Domain desk</span></div>
