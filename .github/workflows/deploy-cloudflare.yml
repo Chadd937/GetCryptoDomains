@@ -39,8 +39,8 @@ jobs:
 
       - name: Verify Cloudflare output
         run: |
-          test -f .output/server/index.mjs
-          test -d .output/public
+          test -f dist/server/server.js
+          test -d dist/client
 
       - name: Deploy Worker and static assets
         run: npx --yes wrangler@4 deploy --config wrangler.jsonc
