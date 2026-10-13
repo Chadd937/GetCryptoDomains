@@ -1,0 +1,29 @@
+name: Package full project source
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v4
+      - name: Package source
+        run: |
+          zip -r GetCryptoDomains-source.zip . \
+            -x '.git/*' 'node_modules/*' '**/node_modules/*' \
+               '.output/*' '**/.output/*' 'dist/*' '**/dist/*' \
+               '.wrangler/*' '**/.wrangler/*'
+      - name: Upload source archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: getcryptodomains-source
+          path: GetCryptoDomains-source.zip
+          if-no-files-found: error
+          retention-days: 7
