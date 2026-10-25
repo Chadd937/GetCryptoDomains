@@ -3,6 +3,7 @@ import { createUIMessageStream, createUIMessageStreamResponse } from 'ai';
 import { z } from 'zod';
 import { verifySession } from '@/lib/auth';
 import { getWorkersAI } from '@/lib/cloudflare-env';
+import { extractHtml } from '@/lib/generated-site';
 
 const inputSchema = z.object({
   messages: z.array(
@@ -16,7 +17,7 @@ const inputSchema = z.object({
 
 const MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 const INSTRUCTIONS =
-  'You are getCryptoDomains AI Studio, an expert website builder and creative director. Help users build polished, production-quality websites. For website requests, briefly explain what you are creating, then provide a complete standalone HTML document in a fenced html code block with inline CSS and JavaScript. Make the design visually distinctive, responsive, accessible, and interactive, with thoughtful typography, spacing, color, states, and mobile layouts. Do not use placeholder links or broken image URLs; use CSS graphics or robust remote assets when appropriate. For revisions, return the entire updated HTML document. Do not claim you deployed, saved, or hosted anything. For ordinary questions, answer naturally. The HTML runs in an isolated browser preview.';
+  'You are getCryptoDomains AI Studio, an AI website builder. Your primary job is to BUILD working websites, not conduct a long discovery interview. When a user describes a website or app, make reasonable product and design decisions and generate it immediately. Ask at most one brief clarifying question only when a truly essential requirement makes building impossible; otherwise do not ask questions, do not merely suggest plans, and do not stop after describing what you intend to do. Every build or revision response MUST contain the entire standalone HTML document inside one fenced \`html code block. Include <!doctype html>, complete markup, inline CSS, and JavaScript where useful. Make the site responsive, accessible, polished, and interactive. Use working local interactions, useful empty states, form validation, and realistic sample content. Avoid placeholder links, dead buttons, TODOs, and claims that anything was deployed or saved. The HTML runs in an isolated browser preview. For ordinary non-building questions, answer naturally.';
 
 export const Route = createFileRoute('/api/chat')({
   server: {
@@ -56,13 +57,42 @@ export const Route = createFileRoute('/api/chat')({
             });
           }
 
+          const conversation = parsed.data.messages.map((message) => ({
+            role: message.role,
+            content: message.parts.map((part) => part.text).join('\\n'),
+          }));
+          const hasGeneratedSite = parsed.data.messages.some((message) =>
+            message.role === 'assistant' &&
+            message.parts.some((part) => part.type === 'text' && extractHtml(part.text) !== null),
+          );
+          const latestUserMessage = [...conversation].reverse().find((message) => message.role === 'user')?.content ?? '';
+
+          // Keep the workflow deterministic: a first request must build, and a conversation
+          // that already has HTML must revise that artifact rather than return to discovery.
+          const workflowInstruction = hasGeneratedSite
+            ? [
+                'WORKFLOW MODE: REVISE EXISTING WEBSITE.',
+                'The conversation already contains a generated website. Treat the latest user message as an edit request for that site.',
+                'Return the complete updated standalone HTML document in a fenced html code block in this response, even for small changes.',
+                'Preserve working features and existing design choices unless the user asks to change them. Do not ask discovery questions; make sensible assumptions and implement the change.',
+                'If earlier assistant messages asked questions instead of building, do not repeat that behavior.',
+              ].join(' ')
+            : [
+                'WORKFLOW MODE: BUILD NOW.',
+                'No usable website has been generated in this conversation yet. Build the website now from the user\'s request.',
+                'Do not ask follow-up questions, do not return only a plan, and do not respond with a list of requirements. Infer sensible defaults for missing details.',
+                'Return a short one-sentence introduction followed by the complete runnable standalone HTML document in a fenced html code block. The HTML document is mandatory in this response.',
+                'If earlier assistant messages asked questions instead of building, treat those as superseded and start building immediately.',
+              ].join(' ');
+
           const messages = [
             { role: 'system' as const, content: INSTRUCTIONS },
-            ...parsed.data.messages.map((message) => ({
-              role: message.role,
-              content: message.parts.map((part) => part.text).join('\n'),
-            })),
+            { role: 'system' as const, content: workflowInstruction },
+            ...conversation,
           ];
+
+          // The explicit variable is useful for server-side diagnostics without logging user content.
+          console.info('AI Studio workflow:', hasGeneratedSite ? 'revise' : 'build', 'latest user chars:', latestUserMessage.length);
 
           const stream = createUIMessageStream({
             execute: async ({ writer }) => {
